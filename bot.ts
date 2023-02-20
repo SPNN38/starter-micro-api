@@ -30,7 +30,7 @@ app.use(express.json());
 // We are receiving updates at the route below!
 app.post(`/bot6140339422:AAEkNNZC3usvp_OIRy41ld64KiqcqIiuhc0`, (req, res) => {
   bot.processUpdate(req.body);
-  res.sendStatus(200);
+  res.sendStatus(403);
 });
 
 // Start Express Server
