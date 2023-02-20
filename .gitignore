@@ -1,0 +1,4 @@
+nodemon.json
+tsconfig.json
+.env
+node_modules
