@@ -21,14 +21,14 @@ bot.onText(/\/top/, top);
 bot.onText(/\/adminpanel/, adminpanel)
 
 // This informs the Telegram servers of the new webhook.
-bot.setWebHook(`https://blue-green-snapper-cape.cyclic.app/bot${process.env.TOKEN}`);
+bot.setWebHook(`https://blue-green-snapper-cape.cyclic.app/bot6140339422:AAEkNNZC3usvp_OIRy41ld64KiqcqIiuhc0`);
 const app = express();
 
 // parse the updates to JSON
 app.use(express.json());
 
 // We are receiving updates at the route below!
-app.post(`/bot${process.env.TOKEN}`, (req, res) => {
+app.post(`/bot6140339422:AAEkNNZC3usvp_OIRy41ld64KiqcqIiuhc0`, (req, res) => {
   bot.processUpdate(req.body);
   res.sendStatus(200);
 });
