@@ -10,7 +10,7 @@ import { top } from "./src/commands/top.js";
 import { adminpanel } from "./src/commands/adminpanel.js";
 import { Action } from "./src/actions.js";
 
-export const bot = new TelegramBot(token, {polling: true});
+export const bot = new TelegramBot(token);
 
 bot.on("callback_query", Action);
 bot.onText(/\/ocinfo/, ocinfo);
@@ -20,9 +20,24 @@ bot.onText(/\/stats/, stats);
 bot.onText(/\/top/, top);
 bot.onText(/\/adminpanel/, adminpanel)
 
-if (process.env.PRODUCTION) {
-    const app = express();
-    app.use(express.json());
-    app.listen(process.env.PORT || 8888); 
-    bot.setWebHook(process.env.URL || "");
-}
+// This informs the Telegram servers of the new webhook.
+bot.setWebHook(`https://blue-green-snapper-cape.cyclic.app/bot6140339422:AAEkNNZC3usvp_OIRy41ld64KiqcqIiuhc0`);
+const app = express();
+
+// parse the updates to JSON
+app.use(express.json());
+
+// We are receiving updates at the route below!
+app.post(`/bot6140339422:AAEkNNZC3usvp_OIRy41ld64KiqcqIiuhc0`, (req, res) => {
+  bot.processUpdate(req.body);
+  res.sendStatus(200);
+});
+
+// Start Express Server
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`Express server is listening on ${process.env.PORT}`);
+});
+
+bot.on('message', msg => {
+    bot.sendMessage(msg.chat.id, 'I am alive!');
+  });
